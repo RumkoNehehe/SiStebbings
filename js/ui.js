@@ -84,7 +84,10 @@
     }
     input.addEventListener('pointerdown', unlock);
     input.addEventListener('touchstart', unlock);
-    input.addEventListener('focus', unlock);
+    input.addEventListener('focus', function () {
+      unlock();
+      window.scrollTo(0, 0);
+    });
 
     return input;
   }
@@ -159,7 +162,8 @@
 
     function focusInput() {
       input.readOnly = false;
-      input.focus();
+      if (input.focus) input.focus({ preventScroll: true });
+      window.scrollTo(0, 0);
     }
 
     input.addEventListener('input', clearError);
