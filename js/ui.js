@@ -72,7 +72,7 @@
     var input = document.createElement('input');
     input.type = 'text';
     input.className = 'quiz-input';
-    input.autocomplete = 'off';
+    input.autocomplete = 'new-password';
     input.autocorrect = 'off';
     input.autocapitalize = 'off';
     input.spellcheck = false;
