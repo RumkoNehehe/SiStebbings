@@ -84,10 +84,7 @@
     }
     input.addEventListener('pointerdown', unlock);
     input.addEventListener('touchstart', unlock);
-    input.addEventListener('focus', function () {
-      unlock();
-      window.scrollTo(0, 0);
-    });
+    input.addEventListener('focus', unlock);
 
     return input;
   }

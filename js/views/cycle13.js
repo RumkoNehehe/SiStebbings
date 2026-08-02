@@ -101,6 +101,7 @@
       }
 
       shell.submit.addEventListener('click', handleSubmit);
+      shell.focusInput();
     }
   };
 })();
