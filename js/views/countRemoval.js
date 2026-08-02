@@ -45,20 +45,16 @@
   function createQuestionNode(q) {
     var node = document.createElement('div');
     node.className = 'question-display';
+    node.innerHTML = '<span>' + (q.side === 'top' ? 'Zhora:' : 'Zospodu:') + '</span>';
     if (q.level === 'card') {
-      node.innerHTML = '<span>' + (q.side === 'top' ? 'Vrchná karta (1. zhora):' : 'Spodná karta (1. zdola):') + '</span>';
       node.appendChild(UI.cardGlyph(q.peek, 'large'));
-    } else {
-      node.innerHTML = '<span>' + (q.side === 'top' ? 'Vrchná hodnota (1. zhora):' : 'Spodná hodnota (1. zdola):') + '</span>';
-      node.appendChild(UI.cardGlyph({ rank: S.VALUE_CYCLE[q.startIdx], suit: 0 }, 'large'));
-    }
-    node.innerHTML += '<span>→ koľko kariet dať prec' + (q.side === 'top' ? ', aby bola vrchná' : ' zospodu, aby bola') + '</span>';
-    if (q.level === 'card') {
+      node.innerHTML += '<span>→ ? →</span>';
       node.appendChild(UI.cardGlyph(q.target, 'large'));
     } else {
+      node.appendChild(UI.cardGlyph({ rank: S.VALUE_CYCLE[q.startIdx], suit: 0 }, 'large'));
+      node.innerHTML += '<span>→ ? →</span>';
       node.appendChild(UI.cardGlyph({ rank: S.VALUE_CYCLE[q.targetIdx], suit: 0 }, 'large'));
     }
-    node.innerHTML += '<span>' + (q.side === 'top' ? '?' : ' posledná?') + '</span>';
     return node;
   }
 

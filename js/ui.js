@@ -188,36 +188,51 @@
 
   function createToggleGroup(opts) {
     var value = opts.initial;
-    var buttons = [];
 
     var wrap = document.createElement('div');
     wrap.className = 'toggle-group';
 
+    var stateEl = document.createElement('span');
+    stateEl.className = 'toggle-state';
     if (opts.name) {
-      var label = document.createElement('span');
-      label.className = 'toggle-label';
-      label.textContent = opts.name;
-      wrap.appendChild(label);
+      stateEl.textContent = opts.name + ': ';
     }
+    var stateVal = document.createElement('b');
+    stateEl.appendChild(stateVal);
 
-    opts.options.forEach(function (opt) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'toggle-btn' + (opt.value === value ? ' active' : '');
-      btn.textContent = opt.label;
-      btn.dataset.toggle = opts.name || '';
-      btn.dataset.value = opt.value;
-      btn.addEventListener('click', function () {
-        if (value === opt.value) return;
-        value = opt.value;
-        buttons.forEach(function (b) {
-          b.classList.toggle('active', b.dataset.value === value);
-        });
-        if (opts.onChange) opts.onChange(value);
-      });
-      wrap.appendChild(btn);
-      buttons.push(btn);
+    var input = document.createElement('input');
+    input.type = 'checkbox';
+    input.dataset.toggle = opts.name || '';
+
+    var label = document.createElement('label');
+    label.className = 'toggle-switch';
+    label.appendChild(input);
+    var slider = document.createElement('span');
+    slider.className = 'toggle-slider';
+    label.appendChild(slider);
+
+    function renderState() {
+      var current = null;
+      for (var i = 0; i < opts.options.length; i++) {
+        if (opts.options[i].value === value) {
+          current = opts.options[i].label;
+          break;
+        }
+      }
+      stateVal.textContent = current;
+    }
+    renderState();
+
+    input.addEventListener('change', function () {
+      var next = input.checked ? opts.options[opts.options.length - 1].value : opts.options[0].value;
+      if (next === value) return;
+      value = next;
+      renderState();
+      if (opts.onChange) opts.onChange(value);
     });
+
+    wrap.appendChild(stateEl);
+    wrap.appendChild(label);
 
     return {
       el: wrap,
