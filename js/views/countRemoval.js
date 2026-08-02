@@ -139,7 +139,7 @@
   }
 
   function applyQuestion(shell, q) {
-    shell.input.inputMode = 'numeric';
+    shell.input.inputMode = 'text';
     shell.input.placeholder = q.level === 'card' ? 'napr. 13' : 'napr. 5';
     shell.hint.textContent = q.level === 'card'
       ? 'Zadaj počet kariet 0–51 (0 = cieľová karta je už vrchná/posledná).'
