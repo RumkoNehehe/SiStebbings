@@ -97,11 +97,10 @@
           shell.aux.innerHTML = '';
           shell.aux.appendChild(createErrorNode(q, rank));
         }
-        shell.input.focus();
+        shell.focusInput();
       }
 
       shell.submit.addEventListener('click', handleSubmit);
-      shell.input.focus();
     }
   };
 })();

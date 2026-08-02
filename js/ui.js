@@ -72,11 +72,20 @@
     var input = document.createElement('input');
     input.type = 'text';
     input.className = 'quiz-input';
-    input.autocomplete = 'new-password';
+    input.autocomplete = 'off';
     input.autocorrect = 'off';
     input.autocapitalize = 'off';
     input.spellcheck = false;
+    input.readOnly = true;
     input.placeholder = 'napr. 9P alebo 10Ka';
+
+    function unlock() {
+      if (input.readOnly) input.readOnly = false;
+    }
+    input.addEventListener('pointerdown', unlock);
+    input.addEventListener('touchstart', unlock);
+    input.addEventListener('focus', unlock);
+
     return input;
   }
 
@@ -148,6 +157,11 @@
       clearError();
     }
 
+    function focusInput() {
+      input.readOnly = false;
+      input.focus();
+    }
+
     input.addEventListener('input', clearError);
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
@@ -166,7 +180,8 @@
       aux: aux,
       showError: showError,
       clearError: clearError,
-      resetInput: resetInput
+      resetInput: resetInput,
+      focusInput: focusInput
     };
   }
 

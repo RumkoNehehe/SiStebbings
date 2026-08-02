@@ -95,11 +95,10 @@
             shell.aux.innerHTML = '';
             shell.aux.appendChild(createErrorNode(q, parsed));
           }
-          shell.input.focus();
+          shell.focusInput();
         };
 
         shell.submit.addEventListener('click', handleSubmit);
-        shell.input.focus();
       }
     };
   }
