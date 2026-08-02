@@ -8,6 +8,11 @@
       desc: 'Zobrazí sa hodnota, zadáš nasledujúcu v cykle A–4–7–10–K–3–6–9–Q–2–5–8–J. Bez farieb — len rámec hodnôt.'
     },
     {
+      id: 'cyclePositions',
+      title: 'Pozície v 13-ke',
+      desc: 'Prvá (1.) je východisková. Urči, ktorá hodnota je N. v cykle, alebo na ktorej pozícii je hľadaná hodnota. Bez farieb.'
+    },
+    {
       id: 'nextCard',
       title: 'Nasledujúca karta',
       desc: 'Zobrazí sa karta, zadáš kompletnú nasledujúcu kartu (+3 hodnota, ďalšia farba CHaSeD).'

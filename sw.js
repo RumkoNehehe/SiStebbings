@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'siste-v1';
+var CACHE_NAME = 'siste-v2';
 
 var PRECACHE = [
   './',
@@ -13,6 +13,7 @@ var PRECACHE = [
   'js/main.js',
   'js/views/menu.js',
   'js/views/cycle13.js',
+  'js/views/cyclePositions.js',
   'js/views/nextCard.js',
   'js/views/position.js',
   'js/views/positionQuery.js',

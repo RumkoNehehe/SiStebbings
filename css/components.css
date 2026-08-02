@@ -343,6 +343,18 @@
   border-color: var(--color-wrong);
 }
 
+.pos-cycle .cycle-cell {
+  min-height: 2.6rem;
+  gap: 1px;
+}
+
+.pos-cycle .cycle-cell .c-pos {
+  position: static;
+  display: block;
+  margin-top: 2px;
+  line-height: 1;
+}
+
 .legend {
   display: flex;
   flex-wrap: wrap;
