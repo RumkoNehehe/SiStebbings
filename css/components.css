@@ -4,6 +4,13 @@
   padding: 0.75rem 1rem;
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .app-title {
   font-size: 1.15rem;
   letter-spacing: 0.02em;
@@ -13,20 +20,41 @@
   color: var(--color-primary);
 }
 
+.nav-toggle {
+  display: none;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  color: var(--color-text);
+}
+
 .topnav {
-  margin-top: 0.5rem;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
   gap: 0.4rem;
+  width: 220px;
+  flex-shrink: 0;
+  padding: 1rem 0 1rem 1rem;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .nav-btn {
   background: var(--color-surface-alt);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0.4rem 0.7rem;
-  font-size: 0.85rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
   color: var(--color-text);
+  text-align: left;
+  width: 100%;
 }
 
 .nav-btn:hover {
@@ -43,9 +71,17 @@
 .app-main {
   flex: 1;
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  min-width: 0;
   padding: 1rem;
+}
+
+.layout {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: flex-start;
 }
 
 .app-footer {
@@ -180,14 +216,14 @@
 }
 
 .card-glyph.large {
-  font-size: 1.6rem;
-  padding: 0.9rem 1.1rem;
+  font-size: 1.35rem;
+  padding: 0.8rem 1rem;
 }
 
 .card-glyph.large .glyph-small {
   display: block;
-  font-size: 0.7rem;
-  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  margin-top: 0.15rem;
   font-weight: 400;
 }
 
@@ -229,6 +265,31 @@
   font-size: 0.75rem;
 }
 
+.cycle-cell.red {
+  border-color: #c0392b;
+}
+
+.cycle-cell.black {
+  border-color: #1f2933;
+}
+
+.cycle-cell .c-rank.red,
+.cycle-cell .c-suit.red {
+  color: #c0392b;
+}
+
+.cycle-cell .c-rank.black,
+.cycle-cell .c-suit.black {
+  color: #1f2933;
+}
+
+.cycle-cell.highlight .c-rank,
+.cycle-cell.highlight .c-suit,
+.cycle-cell.wrong .c-rank,
+.cycle-cell.wrong .c-suit {
+  color: #fff;
+}
+
 .cycle-cell .c-pos {
   position: absolute;
   top: 1px;
@@ -253,6 +314,33 @@
   background: var(--color-wrong);
   border-color: var(--color-wrong);
   color: #fff;
+}
+
+#overview-cycle .cycle-cell {
+  min-height: 3.8rem;
+  border-width: 2px;
+  font-size: 0.85rem;
+  padding: 3px;
+}
+
+#overview-cycle .cycle-cell .c-rank {
+  font-size: 1.1rem;
+}
+
+#overview-cycle .cycle-cell .c-suit {
+  font-size: 1rem;
+}
+
+#overview-cycle .cycle-cell .c-pos {
+  font-size: 0.65rem;
+}
+
+#overview-cycle .cycle-cell.highlight {
+  border-color: var(--color-highlight);
+}
+
+#overview-cycle .cycle-cell.wrong {
+  border-color: var(--color-wrong);
 }
 
 .legend {
@@ -346,16 +434,61 @@
 }
 
 @media (max-width: 600px) {
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: 3.1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .app-header .header-top {
+    width: 100%;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
   .topnav {
     flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-direction: column;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.25rem;
+    width: 100%;
+    padding: 0;
+    margin-top: 0.5rem;
+    position: static;
+    max-height: none;
+    display: none;
+  }
+
+  .topnav.open {
+    position: fixed;
+    top: 3.1rem;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 3.1rem);
+    overflow-y: auto;
+    z-index: 30;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow);
+    margin-top: 0;
+    padding: 0.75rem;
+    display: flex;
   }
 
   .nav-btn {
     flex: 0 0 auto;
     white-space: nowrap;
+    width: 100%;
+    text-align: left;
   }
 
   .cycle-grid {
@@ -375,8 +508,21 @@
     font-size: 0.72rem;
   }
 
+  #overview-cycle .cycle-cell {
+    min-height: 2.2rem;
+    border-width: 1px;
+  }
+
+  #overview-cycle .cycle-cell .c-rank {
+    font-size: 0.72rem;
+  }
+
+  #overview-cycle .cycle-cell .c-suit {
+    font-size: 0.7rem;
+  }
+
   .card-glyph.large {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .app-main {

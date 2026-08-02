@@ -10,11 +10,16 @@
 </head>
 <body>
   <header class="app-header">
-    <h1 class="app-title">Si Stebbins <span>Stack Trainer</span></h1>
-    <nav id="topnav" class="topnav" aria-label="Hlavná navigácia"></nav>
+    <div class="header-top">
+      <h1 class="app-title">Si Stebbins <span>Stack Trainer</span></h1>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="topnav">☰</button>
+    </div>
   </header>
 
-  <main id="app" class="app-main"></main>
+  <div class="layout">
+    <nav id="topnav" class="topnav" aria-label="Hlavná navigácia"></nav>
+    <main id="app" class="app-main"></main>
+  </div>
 
   <footer class="app-footer">
     <p>Tréning Si Stebbins stacku — CHaSeD · +3 · cyklus 13</p>

@@ -37,8 +37,9 @@
       for (var col = 0; col < 13; col++) {
         var idx = row * 13 + col;
         var card = stack[idx];
+        var colorClass = S.suitColor(card.suit) === 'red' ? 'red' : 'black';
         var cell = document.createElement('div');
-        cell.className = 'cycle-cell';
+        cell.className = 'cycle-cell ' + colorClass;
         var isTarget = targetCard && card.rank === targetCard.rank && card.suit === targetCard.suit;
         var isWrong = wrongCard && card.rank === wrongCard.rank && card.suit === wrongCard.suit;
         if (isTarget) cell.classList.add('highlight');
@@ -50,11 +51,11 @@
         pos.textContent = String(offsetNumbering ? idx : idx + 1);
 
         var rankEl = document.createElement('span');
-        rankEl.className = 'c-rank' + (S.suitColor(card.suit) === 'red' ? ' red' : ' black');
+        rankEl.className = 'c-rank ' + colorClass;
         rankEl.textContent = S.numberToRank(card.rank);
 
         var suitEl = document.createElement('span');
-        suitEl.className = 'c-suit';
+        suitEl.className = 'c-suit ' + colorClass;
         suitEl.textContent = S.suitSymbol(card.suit);
 
         cell.appendChild(pos);
