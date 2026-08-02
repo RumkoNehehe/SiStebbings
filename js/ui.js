@@ -186,10 +186,50 @@
     };
   }
 
+  function createToggleGroup(opts) {
+    var value = opts.initial;
+    var buttons = [];
+
+    var wrap = document.createElement('div');
+    wrap.className = 'toggle-group';
+
+    if (opts.name) {
+      var label = document.createElement('span');
+      label.className = 'toggle-label';
+      label.textContent = opts.name;
+      wrap.appendChild(label);
+    }
+
+    opts.options.forEach(function (opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'toggle-btn' + (opt.value === value ? ' active' : '');
+      btn.textContent = opt.label;
+      btn.dataset.toggle = opts.name || '';
+      btn.dataset.value = opt.value;
+      btn.addEventListener('click', function () {
+        if (value === opt.value) return;
+        value = opt.value;
+        buttons.forEach(function (b) {
+          b.classList.toggle('active', b.dataset.value === value);
+        });
+        if (opts.onChange) opts.onChange(value);
+      });
+      wrap.appendChild(btn);
+      buttons.push(btn);
+    });
+
+    return {
+      el: wrap,
+      getValue: function () { return value; }
+    };
+  }
+
   window.UI = {
     cardGlyph: cardGlyph,
     createCycleView: createCycleView,
     buildCardInput: buildCardInput,
-    createQuizShell: createQuizShell
+    createQuizShell: createQuizShell,
+    createToggleGroup: createToggleGroup
   };
 })();

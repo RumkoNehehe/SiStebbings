@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var VIEW_ORDER = ['cycle13', 'cycleValueAt', 'cyclePositionOf', 'nextCard', 'positionTop', 'positionBottom', 'positionQueryTop', 'positionQueryBottom', 'overview', 'cheatsheet'];
+  var VIEW_ORDER = ['nextCard', 'countRemoval', 'positionAt', 'overview', 'cheatsheet'];
 
   var appEl = document.getElementById('app');
   var navEl = document.getElementById('topnav');

@@ -3,44 +3,19 @@
 
   var MENU_ITEMS = [
     {
-      id: 'cycle13',
-      title: 'Tréning 13ky cyklu',
-      desc: 'Zobrazí sa hodnota, zadáš nasledujúcu v cykle A–4–7–10–K–3–6–9–Q–2–5–8–J. Bez farieb — len rámec hodnôt.'
-    },
-    {
-      id: 'cycleValueAt',
-      title: 'Hodnota na pozícii',
-      desc: 'Prvá (1.) je východisková. Urči, ktorá hodnota je N. v cykle. Bez farieb.'
-    },
-    {
-      id: 'cyclePositionOf',
-      title: 'Pozícia v cykle',
-      desc: 'Prvá (1.) je východisková. Urči, na ktorej pozícii v cykle je hľadaná hodnota. Bez farieb.'
-    },
-    {
       id: 'nextCard',
       title: 'Nasledujúca karta',
-      desc: 'Zobrazí sa karta, zadáš kompletnú nasledujúcu kartu (+3 hodnota, ďalšia farba CHaSeD).'
+      desc: 'Prepínače: nasledujúca / predchádzajúca · len hodnota alebo hodnota + farba.'
     },
     {
-      id: 'positionTop',
-      title: 'Lokalizácia zhora',
-      desc: 'Poznáš vrchnú kartu (peek). Urči, ktorá karta je N. od vrchu.'
+      id: 'countRemoval',
+      title: 'Koľko kariet dať prec',
+      desc: 'Karta X je vrchná (alebo spodná). Koľko kariet dať prec, aby bola vrchná (posledná) karta Y? Prepínače: len hodnota alebo hodnota + farba.'
     },
     {
-      id: 'positionBottom',
-      title: 'Lokalizácia zdola',
-      desc: 'Poznáš spodnú kartu. Urči, ktorá karta je N. od spodu.'
-    },
-    {
-      id: 'positionQueryTop',
-      title: 'Koľko kariet dať prec — zhora',
-      desc: 'Prvá karta je X. Koľko kariet dať prec, aby bola divákova karta prvá?'
-    },
-    {
-      id: 'positionQueryBottom',
-      title: 'Koľko kariet dať prec — zdola',
-      desc: 'Posledná karta je X. Koľko kariet dať prec zospodu, aby bola divákova karta posledná?'
+      id: 'positionAt',
+      title: 'Ktorá karta je na pozícii',
+      desc: 'Karta X je vrchná (1.). Ktorá karta je N. od vrchu alebo od spodu? Prepínače: len hodnota alebo hodnota + farba.'
     },
     {
       id: 'overview',
