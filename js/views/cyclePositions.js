@@ -8,9 +8,8 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  function buildQuestion() {
+  function buildQuestion(type) {
     var start = randomInt(0, 12);
-    var type = Math.random() < 0.5 ? 'toValue' : 'toPosition';
     if (type === 'toValue') {
       var pos = randomInt(2, 13);
       return {
@@ -113,77 +112,82 @@
     shell.display.replaceChildren(createQuestionNode(q));
   }
 
+  function createView(type, title) {
+    return {
+      title: title,
+      render: function (container) {
+        container.innerHTML = '';
+
+        var q = buildQuestion(type);
+        var handleSubmit = null;
+        var shell = UI.createQuizShell({
+          title: title,
+          subtitle: 'Urči pozície v 13-hodnotovom cykle: A → 4 → 7 → 10 → K → 3 → 6 → 9 → Q → 2 → 5 → 8 → J. Prvá (1.) je východisková hodnota.',
+          onSubmit: function () { handleSubmit(); }
+        });
+
+        container.appendChild(shell.card);
+        applyQuestion(shell, q);
+
+        handleSubmit = function () {
+          var correct = false;
+          var wrong = null;
+
+          if (q.type === 'toValue') {
+            var rank = S.parseRank(shell.input.value);
+            if (rank === null) {
+              shell.showError();
+              return;
+            }
+            wrong = rank;
+            correct = rank === q.answer;
+          } else {
+            var raw = shell.input.value.trim();
+            if (!/^\d+$/.test(raw)) {
+              shell.showError();
+              return;
+            }
+            var pos = parseInt(raw, 10);
+            if (pos < 1 || pos > 13) {
+              shell.showError();
+              return;
+            }
+            wrong = pos;
+            correct = pos === q.answer;
+          }
+
+          if (correct) {
+            shell.resetInput();
+            shell.result.className = 'answer-result correct';
+            if (q.type === 'toValue') {
+              shell.result.textContent = 'Správne! ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ' (1.) → ' + q.pos + '. je ' + S.formatRank(q.answer) + '.';
+            } else {
+              shell.result.textContent = 'Správne! ' + S.formatRank(S.VALUE_CYCLE[q.target]) + ' je ' + q.answer + '. v cykle po ' + S.formatRank(S.VALUE_CYCLE[q.start]) + '.';
+            }
+            shell.aux.innerHTML = '';
+            q = buildQuestion(type);
+            applyQuestion(shell, q);
+          } else {
+            shell.result.className = 'answer-result wrong';
+            if (q.type === 'toValue') {
+              shell.result.textContent = 'Chyba: ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ' (1.) → ' + q.pos + '. je ' + S.formatRank(q.answer) + ', nie ' + S.formatRank(wrong) + '.';
+            } else {
+              shell.result.textContent = 'Chyba: ' + S.formatRank(S.VALUE_CYCLE[q.target]) + ' je ' + q.answer + '. v cykle po ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ', nie ' + wrong + '.';
+            }
+            shell.aux.innerHTML = '';
+            shell.aux.appendChild(createErrorNode(q, wrong));
+          }
+          shell.focusInput();
+        };
+
+        shell.submit.addEventListener('click', handleSubmit);
+        shell.focusInput();
+      }
+    };
+  }
+
   window.Views = window.Views || {};
 
-  window.Views.cyclePositions = {
-    title: 'Pozície v 13-ke',
-    render: function (container) {
-      container.innerHTML = '';
-
-      var q = buildQuestion();
-      var handleSubmit = null;
-      var shell = UI.createQuizShell({
-        title: 'Pozície v 13-ke',
-        subtitle: 'Urči pozície v 13-hodnotovom cykle: A → 4 → 7 → 10 → K → 3 → 6 → 9 → Q → 2 → 5 → 8 → J. Prvá (1.) je východisková hodnota.',
-        onSubmit: function () { handleSubmit(); }
-      });
-
-      container.appendChild(shell.card);
-      applyQuestion(shell, q);
-
-      handleSubmit = function () {
-        var correct = false;
-        var wrong = null;
-
-        if (q.type === 'toValue') {
-          var rank = S.parseRank(shell.input.value);
-          if (rank === null) {
-            shell.showError();
-            return;
-          }
-          wrong = rank;
-          correct = rank === q.answer;
-        } else {
-          var raw = shell.input.value.trim();
-          if (!/^\d+$/.test(raw)) {
-            shell.showError();
-            return;
-          }
-          var pos = parseInt(raw, 10);
-          if (pos < 1 || pos > 13) {
-            shell.showError();
-            return;
-          }
-          wrong = pos;
-          correct = pos === q.answer;
-        }
-
-        if (correct) {
-          shell.resetInput();
-          shell.result.className = 'answer-result correct';
-          if (q.type === 'toValue') {
-            shell.result.textContent = 'Správne! ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ' (1.) → ' + q.pos + '. je ' + S.formatRank(q.answer) + '.';
-          } else {
-            shell.result.textContent = 'Správne! ' + S.formatRank(S.VALUE_CYCLE[q.target]) + ' je ' + q.answer + '. v cykle po ' + S.formatRank(S.VALUE_CYCLE[q.start]) + '.';
-          }
-          shell.aux.innerHTML = '';
-          q = buildQuestion();
-          applyQuestion(shell, q);
-        } else {
-          shell.result.className = 'answer-result wrong';
-          if (q.type === 'toValue') {
-            shell.result.textContent = 'Chyba: ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ' (1.) → ' + q.pos + '. je ' + S.formatRank(q.answer) + ', nie ' + S.formatRank(wrong) + '.';
-          } else {
-            shell.result.textContent = 'Chyba: ' + S.formatRank(S.VALUE_CYCLE[q.target]) + ' je ' + q.answer + '. v cykle po ' + S.formatRank(S.VALUE_CYCLE[q.start]) + ', nie ' + wrong + '.';
-          }
-          shell.aux.innerHTML = '';
-          shell.aux.appendChild(createErrorNode(q, wrong));
-        }
-        shell.focusInput();
-      };
-
-      shell.submit.addEventListener('click', handleSubmit);
-      shell.focusInput();
-    }
-  };
+  window.Views.cycleValueAt = createView('toValue', 'Hodnota na pozícii');
+  window.Views.cyclePositionOf = createView('toPosition', 'Pozícia v cykle');
 })();
