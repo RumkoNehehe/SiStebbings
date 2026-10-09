@@ -3,6 +3,11 @@
 
   var MENU_ITEMS = [
     {
+      id: 'randomCard',
+      title: 'Random karta',
+      desc: 'Automaticky zobrazí náhodnú kartu. Kliknutím vygeneruješ ďalšiu.'
+    },
+    {
       id: 'nextCard',
       title: 'Nasledujúca karta',
       desc: 'Prepínače: nasledujúca / predchádzajúca · len hodnota alebo hodnota + farba.'

@@ -12,6 +12,7 @@ var PRECACHE = [
   'js/ui.js',
   'js/main.js',
   'js/views/menu.js',
+  'js/views/randomCard.js',
   'js/views/nextCard.js',
   'js/views/countRemoval.js',
   'js/views/positionAt.js',
